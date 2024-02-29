@@ -7,6 +7,7 @@ const user_model = require("./models/user.model");
 
 const app = express();
 const PORT = server_config.PORT;
+app.use(express.json());
 
 mongoose.connect(db_config.DB_URL)
 
@@ -20,9 +21,15 @@ db.once("open", () => {
 })
 
 async function init() {
-    var user = await user_model.findOne({ userId: "admin" });
+    try {
+        var user = await user_model.findOne({ userId: "admin" });
+
+    } catch (error) {
+        console.log("error while reading user", error)
+    }
 
     if (user) {
+        await user_model.deleteOne({ userId: "admin" });
         console.log("Admin user already exists");
         return;
     }
@@ -41,6 +48,7 @@ async function init() {
     }
 }
 
+require("./routes/auth.route")(app);
 
 
 app.listen(PORT, () => { console.log(`Server started at ${PORT}`) });
