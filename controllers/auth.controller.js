@@ -29,7 +29,6 @@ exports.signup = async (req, res) => {
     }
 }
 
-
 exports.signin = async (req, res) => {
 
     //check if the userId is present in the system or not
