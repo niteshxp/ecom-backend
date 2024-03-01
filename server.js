@@ -29,7 +29,7 @@ async function init() {
     }
 
     if (user) {
-        await user_model.deleteOne({ userId: "admin" });
+        // await user_model.deleteOne({ userId: "admin" });
         console.log("Admin user already exists");
         return;
     }
