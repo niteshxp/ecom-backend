@@ -9,6 +9,7 @@ const app = express();
 const PORT = server_config.PORT;
 app.use(express.json());
 
+//connection with mongodb
 mongoose.connect(db_config.DB_URL)
 
 const db = mongoose.connection;
@@ -24,21 +25,21 @@ async function init() {
     try {
         var user = await user_model.findOne({ userId: "admin" });
 
+        if (user) {
+            // await user_model.deleteOne({ userId: "admin" });
+            console.log("Admin user already exists");
+            return;
+        }
     } catch (error) {
         console.log("error while reading user", error)
     }
 
-    if (user) {
-        // await user_model.deleteOne({ userId: "admin" });
-        console.log("Admin user already exists");
-        return;
-    }
 
     try {
         user = await user_model.create({
             name: "Nitesh",
             userId: "admin",
-            email: "nkytxp2@gmail.com",
+            email: "test@gmail.com",
             userType: "ADMIN",
             password: bcrypt.hashSync("test123", 8)
         });

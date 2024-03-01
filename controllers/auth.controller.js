@@ -12,6 +12,7 @@ exports.signup = async (req, res) => {
      */
 
     const request_body = req.body;
+
     const userObject = {
         name: request_body.name,
         email: request_body.email,
@@ -22,10 +23,20 @@ exports.signup = async (req, res) => {
 
     try {
         const user_created = await user_model.create(userObject);
-        res.status(201).send(user_created);
+        const res_obj = {
+            name: user_created.name,
+            userId: user_created.userId,
+            email: user_created.email,
+            userType: user_created.userType,
+            createdAt: user_created.createdAt,
+            updatedAt: user_created.updatedAt
+        }
+        res.status(201).send(res_obj);
     } catch (error) {
         console.log("error while registering the user", error);
-        res.status(500).send({ message: "Error while registering the user" });
+        res.status(500).send({
+            message: "Error while registering the user"
+        });
     }
 }
 

@@ -19,11 +19,10 @@ const userSchema = new mongoose.Schema({
         required: true,
         lowercase: true,
         minLength: 10,
-        uniques: true
+        unique: true
     },
     userType: {
         type: String,
-        required: true,
         default: 'USER',
         enum: ["USER", "ADMIN"]
     }
