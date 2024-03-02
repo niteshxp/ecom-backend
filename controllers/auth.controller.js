@@ -63,7 +63,7 @@ exports.signin = async (req, res) => {
     // uisng jwt we will create access token with a given TTL and return
 
     if (passwordIsValid) {
-        const token = jwt.sign({ id: user.userId }, secret.secret, { expiresIn: 120 }); // 120 secs
+        const token = jwt.sign({ id: user.userId }, secret.secret, { expiresIn: 300 }); // 120 secs
         res.status(200).send({
             name: user.name,
             userId: user.userId,
